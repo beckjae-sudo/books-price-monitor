@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 def scrape_book(url):
 
     response = requests.get(url)
+    response.encoding = "utf-8"
     response.raise_for_status()
 
 # Parse HTML
@@ -30,8 +31,7 @@ def scrape_book(url):
         value = row.find("td").text.strip()
         product_info[key] = value
 
-    print(product_info)
-
+    
     upc = product_info["UPC"]
     price_including_tax = product_info["Price (incl. tax)"]
     price_including_tax = product_info["Price (incl. tax)"]
@@ -75,7 +75,7 @@ def scrape_book(url):
 
     return {
     "product_page_url": product_page_url,
-    "universal_product_code (upc)": upc,
+    "universal_product_code": upc,
     "book_title": book_title,
     "price_including_tax": price_including_tax,
     "price_excluding_tax": price_excluding_tax,
